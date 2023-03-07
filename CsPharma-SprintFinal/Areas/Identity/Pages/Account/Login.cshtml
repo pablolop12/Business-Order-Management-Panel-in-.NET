@@ -1,0 +1,57 @@
+﻿@page
+@model LoginModel
+
+@{
+    Layout = "~/Pages/Shared/LoginLayout.cshtml";
+    ViewData["Title"] = "Log in";
+}
+<link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+
+<a navbar-brand" asp-area="" asp-page="/Index" style="-webkit-filter: drop-shadow(5px 5px 5px #222);filter: drop-shadow(0px 1px 2px #136116);">
+    <img style="width:150px" src="/css/imagen/logoCSpharma.png" />
+</a>
+
+
+<div class="row">
+    <form id="ol-lg-6 offset-lg-3" id="account" method="post">
+        <h2 class="row justify-content-center mb-3">Inicio de sesión</h2>
+        <div class="contenedorFormulario row justify-content-center">
+            <div class="card p-5">
+
+                <div>
+                    <label asp-for="Input.Email" class="labelCspharma">Correo electrónico</label><br />
+                    <input asp-for="Input.Email" class="inputCspharma" autocomplete="username" aria-required="true" placeholder="Introduzca su correo electrónico"/>
+                    <span asp-validation-for="Input.Email" class="text-danger"></span>
+                </div>
+
+                <br />
+
+                <div>
+                    <label asp-for="Input.Password" class="labelCspharma">Contraseña</label><br />
+                    <input asp-for="Input.Password" class="inputCspharma" autocomplete="current-password" aria-required="true" placeholder="Introduzca su contraseña" />
+                    <span asp-validation-for="Input.Password" class="text-danger"></span>
+                </div>
+
+                <br />
+                <br />
+
+                <div class="row justify-content-center" style="width: 50%; margin: auto;">
+                    <button id="login-submit" type="submit" class="botonCspharma">Iniciar sesión</button>
+                   
+                </div>
+
+                <br />
+                <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">¿Usuario nuevo? Regístrate</a>
+
+                <br />
+            </div>
+
+        </div>
+    </form>
+
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
+

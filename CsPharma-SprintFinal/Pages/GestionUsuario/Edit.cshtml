@@ -1,0 +1,109 @@
+﻿@page
+@model CsPharma_V4.Pages.GestionUsuario.EditModel
+
+<link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+
+
+
+<div class="card">
+    <div class="card-header p-4">
+        <h1>Editar permisos del usuario</h1>
+    </div>
+    <div class="card-body p-4">
+
+        @using (Html.BeginForm("OnPost", "User"))
+        {
+            @Html.HiddenFor(h => @Model.UserModel.User.Id)
+            ;
+
+            <div class="row g-3">
+                <div class="col-sm-6">
+                    <label asp-for="UserModel.User.NombreUsuario" class="form-label">Nombre del usuario</label>
+                    <input asp-for="UserModel.User.NombreUsuario" class="form-control" autocomplete="username" aria-required="true" disabled/>
+                    <span asp-validation-for="UserModel.User.NombreUsuario" class="text-danger"></span>
+                </div>
+                <div class="col-sm-6">
+                    <label asp-for="UserModel.User.ApellidosUsuario" class="form-label">Apellidos del usuario</label>
+                    <input asp-for="UserModel.User.ApellidosUsuario" class="form-control" autocomplete="username" aria-required="true" disabled/>
+                    <span asp-validation-for="UserModel.User.ApellidosUsuario" class="text-danger"></span>
+                </div>
+
+                <div class="col-6">
+                    <label asp-for="UserModel.User.Email" class="form-label">Correo electrónico</label>
+                    <input asp-for="UserModel.User.Email" class="form-control" autocomplete="username" aria-required="true" />
+                    <span asp-validation-for="UserModel.User.Email" class="text-danger"></span>
+                </div>
+
+                <div class="col-sm-6">
+                    <label asp-for="UserModel.User.PhoneNumber" class="form-label">Número de teléfono</label>
+                    <input asp-for="UserModel.User.PhoneNumber" class="form-control" autocomplete="username" aria-required="true" placeholder="El usuario no ha proporcionado un número de teléfono" />
+                    <span asp-validation-for="UserModel.User.PhoneNumber" class="text-danger"></span>
+                </div>
+            
+
+            <br />
+
+            <div class="col-sm-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h4>Roles</h4>
+                    </div>
+                    <div class="card-body">
+                        <p>Seleccione el rol que quiera asignar al usuario a continuación:</p>
+                        @for (int i = 0; i < @Model.UserModel.Roles.Count(); i++)
+                        {
+                            <div class="form-check">
+                                @Html.CheckBoxFor(c => @Model.UserModel.Roles[i].Selected, new { onclick = "selectOnlyThis(" + (i+1) + ")", @class = "form-check-input" })
+                                @Html.HiddenFor(h => @Model.UserModel.Roles[i].Value)
+
+                                @Html.LabelFor(l => @Model.UserModel.Roles[i].Selected, @Model.UserModel.Roles[i].Text, new {@class="form-check-label"})
+                                @Html.HiddenFor(h => @Model.UserModel.Roles[i].Text)
+                            </div>
+                        }
+                    </div>
+                </div>
+                <br>
+            </div>
+
+                <div class="col-sm-6">
+                    <label asp-for="UserModel.User.UserName" class="form-label">Nombre de usuario</label>
+                    <input asp-for="UserModel.User.UserName" class="form-control" autocomplete="username" aria-required="true" placeholder="El usuario no ha proporcionado un número de teléfono" />
+                    <span asp-validation-for="UserModel.User.UserName" class="text-danger"></span>
+                </div>
+
+            </div>
+
+            <br />
+            <button asp-page-handler="Async" type="submit" class="btn btn-primary" value="submit">Guardar cambios</button>
+        }
+    </div>
+</div>
+
+<div>
+    <a asp-page="./Index">← Volver a la lista de pedidos</a>
+</div>
+
+
+
+
+
+
+
+<script>
+
+    function selectOnlyThis(id) {
+        // Obtener todos los checkboxes
+        var checkboxes = document.getElementsByClassName('form-check-input');
+
+        // Desmarcar todos los checkboxes excepto el seleccionado
+        for (var i = 0; i < checkboxes.length; i++) {
+            if (i + 1 == id) {
+                checkboxes[i].checked = true;
+            } else {
+                checkboxes[i].checked = false;
+            }
+        }
+    }
+
+
+</script>

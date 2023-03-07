@@ -1,0 +1,80 @@
+﻿@page
+@model CsPharma_V4.Pages.EstadoPedido.DeleteModel
+
+@{
+    ViewData["Title"] = "Borrado";
+}
+
+<div class="card m-auto" style="width: 60%;">
+    <div class="card-header p-4" style="text-align:center;">
+        <h3>¿Está seguro de que desea eliminar este pedido?</h3>
+    </div>
+
+    <div class="card-body ">
+        <table class="tablaDelete">
+            <tr>
+                <th class="mr-2">Referencia: </th>
+
+                <td>@Html.DisplayFor(model => model.TdcTchEstadoPedido.MdUuid)</td>
+            </tr>
+            <tr>
+                <th>Última actualización:</th>
+                <td>@Html.DisplayFor(model => model.TdcTchEstadoPedido.MdDate)</td>
+            </tr>
+            <tr style="background-color: #98f59a;">
+                <th>Código de pedido</th>
+                <td>@Html.DisplayFor(model => model.TdcTchEstadoPedido.CodPedido)</td>
+            </tr>
+            <tr>
+                <th>Estado de devolución: </th>
+                <td>@Html.DisplayFor(model => model.TdcTchEstadoPedido.CodEstadoDevolucionNavigation.DesEstadoDevolucion)</td>
+            </tr>
+            <tr>
+                <th>Estado de envío: </th>
+                <td>@Html.DisplayFor(model => model.TdcTchEstadoPedido.CodEstadoEnvioNavigation.DesEstadoEnvio)</td>
+            </tr>
+            <tr>
+                <th>Estado de pago: </th>
+                <td>@Html.DisplayFor(model => model.TdcTchEstadoPedido.CodEstadoPagoNavigation.DesEstadoPago)</td>
+            </tr>
+            <tr>
+                <th>Linea de distribución</th>
+                <td>@Html.DisplayFor(model => model.TdcTchEstadoPedido.CodLinea)</td>
+            </tr>
+        </table>
+    </div>
+</div>
+<br />
+<form class="row justify-content-center" method="post" asp-validation-summary="All" style="width: 30%; margin-left: 35%;">
+    <input type="submit" value="Confirmar eliminación" class="btn btn-danger" id="btn-confirm" />
+</form>
+
+<br />
+<br />
+
+<a asp-page="./Index">← Volver a la lista de pedidos</a>
+
+
+
+
+
+<script>
+    // Selecciona el botón de envío del formulario y agrega un manejador de eventos para el clic
+    const btnConfirm = document.getElementById('btn-confirm');
+    btnConfirm.addEventListener('click', (event) => {
+        // Obtiene el código del pedido que se va a eliminar
+        const codPedido = "@Model.TdcTchEstadoPedido.CodPedido";
+
+        // Obtiene el valor ingresado en el campo de confirmación
+        const confirmValue = prompt('Por favor, ingrese el "Código de pedido" destacado en verde para confirmar la eliminación:');
+
+        // Verifica si el valor ingresado coincide con el código del pedido
+        if (confirmValue !== codPedido) {
+            // Si no coincide, muestra un mensaje de error y detiene la eliminación del registro
+            alert('El código de confirmación es incorrecto. Por favor, inténtelo de nuevo.');
+            event.preventDefault();
+        }
+    });
+</script>
+
+

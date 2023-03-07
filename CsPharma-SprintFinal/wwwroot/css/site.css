@@ -1,0 +1,121 @@
+html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+    margin-bottom: 60px;
+    background-color: #e7fce6;
+}
+.headerLetters {
+    color: #ffffff;
+}
+
+
+/*NAVBAR*/
+.barraNavegacion {
+    background-color: #5ccb5f;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    border-radius: 15px;
+    font-size: 18px;
+    padding-right: 10px;
+    height: 70px;
+}
+
+/*FOOTER*/
+.barraFooter {
+    background-color: #5ccb5f;
+    box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
+    padding: 4px;
+    position:fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+}
+
+/*ELEMENTOS CSPHARMA*/
+.inputCspharma {
+    transition: 0.3s;
+    border-radius: 20px;
+    padding: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+    border-color: #5dc1b9;
+    color: #5dc1b9;
+    background-color: #ffffff;
+    border-width: 2px;
+    border-style: solid !important;
+    font-size: 17px;
+    font-weight: 450;
+    width: 100%;
+}
+
+.botonCspharma {
+    transition: 0.3s;
+    border-radius: 20px;
+    padding: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+    border-color: #5dc1b9;
+    color: #5dc1b9;
+    background-color: #ffffff;
+    border-width: 2px;
+    border-style: solid !important;
+    font-size: 17px;
+    font-weight: 450;
+}
+
+    .botonCspharma:hover {
+        transition: 0.3s;
+        border-radius: 20px;
+        padding: 5px;
+        padding-left: 10px;
+        padding-right: 10px;
+        border-color: #5dc1b9;
+        color: white;
+        background-color: #5dc1b9;
+        border-width: 2px;
+        border-style: solid !important;
+        font-size: 17px;
+        font-weight: 450;
+    }
+
+.contenedorFormulario {
+    padding-left: 25%;
+    padding-right: 25%;
+    border-collapse: separate;
+}
+
+.tablaDelete{
+    border-radius: 5px;
+
+}
+.tablaDelete th {
+    width: 60%;
+}
+
+.topIndex {
+    display: flex;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+    .topIndex p {
+        margin: 0;
+    }
+
+.tablaEstadoPedidos th, td{
+    text-align: center;
+}

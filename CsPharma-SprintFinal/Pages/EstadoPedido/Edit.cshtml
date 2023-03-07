@@ -1,0 +1,62 @@
+﻿@page
+@model CsPharma_V4.Pages.EstadoPedido.EditModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<div class="card w-75 m-auto" style="wid">
+    <div class="card-header p-4">
+        <h1>Editar pedido</h1>
+    </div>
+
+    <div class="card-body p-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <input type="hidden" asp-for="TdcTchEstadoPedido.Id" />
+            <input type="hidden" asp-for="TdcTchEstadoPedido.MdUuid" class="form-control" />
+            <input type="hidden" asp-for="TdcTchEstadoPedido.MdDate" class="form-control" />
+
+            <div class="form-group mb-3">
+                <label asp-for="TdcTchEstadoPedido.CodEstadoEnvio" class="control-label">Estado del envío</label>
+                <select asp-for="TdcTchEstadoPedido.CodEstadoEnvio" class="form-control" asp-items="ViewBag.CodEstadoEnvio"></select>
+                <span asp-validation-for="TdcTchEstadoPedido.CodEstadoEnvio" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-3">
+                <label asp-for="TdcTchEstadoPedido.CodEstadoPago" class="control-label">Estado del pago</label>
+                <select asp-for="TdcTchEstadoPedido.CodEstadoPago" class="form-control" asp-items="ViewBag.CodEstadoPago"></select>
+                <span asp-validation-for="TdcTchEstadoPedido.CodEstadoPago" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-3">
+                <label asp-for="TdcTchEstadoPedido.CodEstadoDevolucion" class="control-label">Estado de devolución</label>
+                <select asp-for="TdcTchEstadoPedido.CodEstadoDevolucion" class="form-control" asp-items="ViewBag.CodEstadoDevolucion"></select>
+                <span asp-validation-for="TdcTchEstadoPedido.CodEstadoDevolucion" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-3">
+                <label asp-for="TdcTchEstadoPedido.CodPedido" class="control-label">Código de pedido</label>
+                <input asp-for="TdcTchEstadoPedido.CodPedido" class="form-control" />
+                <span asp-validation-for="TdcTchEstadoPedido.CodPedido" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-3">
+                <label asp-for="TdcTchEstadoPedido.CodLinea" class="control-label">Línea de distribución</label>
+                <select asp-for="TdcTchEstadoPedido.CodLinea" class="form-control" asp-items="ViewBag.CodLinea"></select>
+                <span asp-validation-for="TdcTchEstadoPedido.CodLinea" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-3">
+                <input type="submit" value="Guardar cambios" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<br />
+<div>
+    <a asp-page="./Index">← Volver a la lista de pedidos</a>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

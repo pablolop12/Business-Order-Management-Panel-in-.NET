@@ -1,0 +1,113 @@
+﻿@page
+@model CsPharma_V4.Pages.EstadoPedido.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="topIndex">
+    <h1>Listado de pedidos</h1>
+
+
+
+    <p>
+        <a class="btn btn-success" asp-page="Create">Crear nuevo pedido</a>
+    </p>
+</div>
+
+
+
+<div class="card">
+    <div class="card-header">
+        <div class="form-group">
+            <label class="m-2" for="searchInput">Filtrado de registros</label>
+            <input type="text" class="form-control" id="searchInput" placeholder="Ingrese datos para mostrar datos coincidentes">
+        </div>
+    </div>
+
+
+    <div class="card-body">
+        <table class="table tablaEstadoPedidos">
+            <thead>
+                <tr>
+                    <th>
+                        Referencia
+                    </th>
+                    <th>
+                        Última actualización
+                    </th>
+                    <th>
+                        Código de pedido
+                    </th>
+                    <th>
+                        Estado de devolución
+                    </th>
+                    <th>
+                        Estado de envío
+                    </th>
+                    <th>
+                        Estado de pago
+                    </th>
+                    <th>
+                        Linea de distribución
+                    </th>
+                    <th>
+                        Acciones del pedido
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.TdcTchEstadoPedido)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.MdUuid)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.MdDate)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CodPedido)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CodEstadoDevolucionNavigation.DesEstadoDevolucion)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CodEstadoEnvioNavigation.DesEstadoEnvio)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CodEstadoPagoNavigation.DesEstadoPago)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CodLineaNavigation.CodLinea)
+                        </td>
+                        <td style="text-align: center;">
+                            <a class="btn btn-secondary btn-sm mb-1" asp-page="./Edit" asp-route-id="@item.Id" style="width:85px;">Editar</a>
+                            <!-- <a asp-page="./Details" asp-route-id="@item.Id">Detalles</a> -->
+                            <a class="btn btn-danger btn-sm" asp-page="./Delete" asp-route-id="@item.Id" style="width:85px;">Eliminar</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- FILTRADO JAVASCRIPT -->
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+
+
+            $("#searchInput").on("keyup", function () {
+
+                var value = $(this).val().toLowerCase();
+
+                $("tbody tr").filter(function () {
+
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                });
+            });
+        });
+    </script>
+}

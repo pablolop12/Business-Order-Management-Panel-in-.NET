@@ -1,0 +1,90 @@
+﻿@page
+@model CsPharma_V4.Pages.GestionUsuario.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="topIndex">
+    <h1>Gestión de usuarios</h1>
+</div>
+
+
+
+<div class="card">
+    <div class="card-header p-4">
+        <div class="form-group">
+            <label class="m-2" for="searchInput">Filtrado de registros</label>
+            <input type="text" class="form-control" id="searchInput" placeholder="Ingrese datos para mostrar datos coincidentes">
+        </div>
+    </div>
+
+
+    <div class="card-body">
+        <table class="table tablaEstadoPedidos">
+            <thead>
+                <tr>
+                    <th>
+                        ID
+                    </th>
+                    <th>
+                        Nombre
+                    </th>
+                    <th>
+                        Apellidos
+                    </th>
+                    <th>
+                        Correo electrónico
+                    </th>
+                    <th>
+                        Acciones
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.UserList)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Id)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.NombreUsuario)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ApellidosUsuario)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Email)
+                        </td>
+
+                        <td style="text-align: center;">
+                            <a class="btn btn-secondary btn-sm mb-1" asp-page="./Edit" asp-route-id="@item.Id" style="width:85px;">Editar</a>
+                            <a class="btn btn-danger btn-sm" asp-page="./Delete" asp-route-id="@item.Id" style="width:85px;">Eliminar</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- FILTRADO JAVASCRIPT -->
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+
+
+            $("#searchInput").on("keyup", function () {
+
+                var value = $(this).val().toLowerCase();
+
+                $("tbody tr").filter(function () {
+
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                });
+            });
+        });
+
+    </script>
+}
