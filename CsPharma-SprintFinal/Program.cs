@@ -36,7 +36,7 @@ AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true); // se config
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment()) // se verifica si la aplicación está en modo de desarrollo
 {
-    app.UseExceptionHandler("/Error"); // se configura el manejo de excepciones
+    app.UseExceptionHandler("/Error"); // CONFIGURACION DE MANEJO DE EXCEPCIONES
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts(); // se habilita la política de seguridad HSTS
 }

@@ -6,13 +6,13 @@ using Microsoft.AspNetCore.Identity;
 
 namespace CsPharma_V4.Areas.Identity.Data;
 
-// Add profile data for application users by adding properties to the User class
-public class User : IdentityUser
-{
+    // Cladee que añade las propiedades Nombre y apellido a las propias que tiene el Identity por defecto
+    public class User : IdentityUser
+    {
 
-    public string NombreUsuario { get; set; }
-    public string ApellidosUsuario { get; set; }
-}
+        public string NombreUsuario { get; set; }
+        public string ApellidosUsuario { get; set; }
+    }
 
 
 

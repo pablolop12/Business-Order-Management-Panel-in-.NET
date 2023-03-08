@@ -121,41 +121,45 @@ namespace CsPharma_V4.Areas.Identity.Pages.Account
             public string ConfirmPassword { get; set; }
         }
 
-
+        //METODO GET DE LA VISTA REGISTRO
         public async Task OnGetAsync(string returnUrl = null)
         {
             ReturnUrl = returnUrl;
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
         }
 
+
+        //METODO POST DE LA VISTA REGISTRO
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
         {
             returnUrl ??= Url.Content("~/");
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid)
             {
-                var user = CreateUser();
+                var user = CreateUser(); //Crea objeto usuario, método definido abajo
 
                 user.NombreUsuario = Input.NombreUsuario;
                 user.ApellidosUsuario = Input.ApellidosUsuario;
 
                 await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
                 await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
-                var result = await _userManager.CreateAsync(user, Input.Password);
+                var result = await _userManager.CreateAsync(user, Input.Password); //Crea el usuario en Base de Datos
 
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User created a new account with password.");
 
                     //Asignación de rol de usuario al nuevo usuario
-                    var role = await _roleManager.RoleExistsAsync("Usuario");
+                    var role = await _roleManager.RoleExistsAsync("Usuario");//Chequea si existe un rol Usuario
                     if (!role)
                     {
-                        await _roleManager.CreateAsync(new IdentityRole("Usuario"));
+                        await _roleManager.CreateAsync(new IdentityRole("Usuario"));//Crea el rol Usuario si no existe
                     }
-                    await _userManager.AddToRoleAsync(user, "Usuario");
+                    await _userManager.AddToRoleAsync(user, "Usuario");//Agrega el rol Usuario al Usuario
 
                     var userId = await _userManager.GetUserIdAsync(user);
+                    
+                    //Este codigo no se usa actualmente (Email confirmado)
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
                     code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
                     var callbackUrl = Url.Page(
@@ -163,10 +167,10 @@ namespace CsPharma_V4.Areas.Identity.Pages.Account
                         pageHandler: null,
                         values: new { area = "Identity", userId = userId, code = code, returnUrl = returnUrl },
                         protocol: Request.Scheme);
-
+                    //Este codigo no se usa actualmente (Email confirmado)
                     await _emailSender.SendEmailAsync(Input.Email, "Confirm your email",
                         $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
-
+                    //Este codigo no se usa actualmente (Email confirmado)
                     if (_userManager.Options.SignIn.RequireConfirmedAccount)
                     {
                         return RedirectToPage("RegisterConfirmation", new { email = Input.Email, returnUrl = returnUrl });
@@ -174,8 +178,9 @@ namespace CsPharma_V4.Areas.Identity.Pages.Account
                     else
                     {
                         await _signInManager.SignInAsync(user, isPersistent: false);
-                        return LocalRedirect(returnUrl);
+                        return LocalRedirect(returnUrl);//Inicia sesión
                     }
+                   
                 }
                 foreach (var error in result.Errors)
                 {
@@ -187,6 +192,8 @@ namespace CsPharma_V4.Areas.Identity.Pages.Account
             return Page();
         }
 
+
+        //Metodo que crea un Usuario
         private User CreateUser()
         {
             try
@@ -201,6 +208,7 @@ namespace CsPharma_V4.Areas.Identity.Pages.Account
             }
         }
 
+        //Metodo que almacena el correo electrónico
         private IUserEmailStore<User> GetEmailStore()
         {
             if (!_userManager.SupportsUserEmail)

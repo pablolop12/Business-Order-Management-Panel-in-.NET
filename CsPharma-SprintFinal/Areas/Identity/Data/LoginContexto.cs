@@ -20,17 +20,15 @@ public class LoginContexto : IdentityDbContext<User>
     {
         base.OnModelCreating(builder);
 
-        //añadimos nueva configuración
+
         builder.ApplyConfiguration(new UserEntityConfiguration());
 
-        //nuevo esquema
+        //Esquema donde se creará todo
         builder.HasDefaultSchema("dlk_torrecontrol");
 
-        //cambia el nombre de las tablas
+        //Asignamos nombres personalizados de las tablas
         builder.Entity<User>().ToTable("Dlk_cat_acc_empleados");
         builder.Entity<IdentityRole>().ToTable("Dlk_cat_acc_roles");
-
-        
         builder.Entity<IdentityUserRole<string>>().ToTable("Dlk_cat_acc_empleados_roles");
         builder.Entity<IdentityRoleClaim<string>>().ToTable("Dlk_cat_acc_claim_roles");
         builder.Entity<IdentityUserClaim<string>>().ToTable("Dlk_cat_acc_claim_empleados");
@@ -43,7 +41,7 @@ public class UserEntityConfiguration : IEntityTypeConfiguration<User>
 {
     public void Configure(EntityTypeBuilder<User> builder)
     {
-        //añadimos nuevos campos
+        //Campos adicionales de nombre Y apellido
         builder.Property(usuario => usuario.NombreUsuario).HasMaxLength(255);
         builder.Property(usuario => usuario.ApellidosUsuario).HasMaxLength(255);
     }

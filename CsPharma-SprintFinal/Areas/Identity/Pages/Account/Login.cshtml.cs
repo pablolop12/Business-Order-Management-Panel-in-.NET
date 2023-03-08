@@ -20,20 +20,16 @@ namespace CsPharma_V4.Areas.Identity.Pages.Account
 {
     public class LoginModel : PageModel
     {
+        //Inyecciones de dependencias
         private readonly SignInManager<User> _signInManager;
         private readonly ILogger<LoginModel> _logger;
-
         public LoginModel(SignInManager<User> signInManager, ILogger<LoginModel> logger)
         {
             _signInManager = signInManager;
             _logger = logger;
         }
 
-        /// <summary>
-        ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
-        ///     directly from your code. This API may change or be removed in future releases.
-        /// </summary>
-        [BindProperty]
+        [BindProperty]//Anotación que indica que Input va a recibir información a traves del HTML
         public InputModel Input { get; set; }
 
         /// <summary>
@@ -85,6 +81,7 @@ namespace CsPharma_V4.Areas.Identity.Pages.Account
             public bool RememberMe { get; set; }
         }
 
+        //METODO GET DE LA VISTA LOGIN
         public async Task OnGetAsync(string returnUrl = null)
         {
             if (!string.IsNullOrEmpty(ErrorMessage))
@@ -102,6 +99,7 @@ namespace CsPharma_V4.Areas.Identity.Pages.Account
             ReturnUrl = returnUrl;
         }
 
+        //METODO POST DE LA VISTA LOGIN
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
         {
             returnUrl ??= Url.Content("~/");
@@ -112,17 +110,17 @@ namespace CsPharma_V4.Areas.Identity.Pages.Account
             {
                 // This doesn't count login failures towards account lockout
                 // To enable password failures to trigger account lockout, set lockoutOnFailure: true
-                var result = await _signInManager.PasswordSignInAsync(Input.Email, Input.Password, Input.RememberMe, lockoutOnFailure: false);
+                var result = await _signInManager.PasswordSignInAsync(Input.Email, Input.Password, Input.RememberMe, lockoutOnFailure: false);//Accion de logear
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User logged in.");
                     return LocalRedirect(returnUrl);
                 }
-                if (result.RequiresTwoFactor)
+                if (result.RequiresTwoFactor)//Este código no está en uso
                 {
                     return RedirectToPage("./LoginWith2fa", new { ReturnUrl = returnUrl, RememberMe = Input.RememberMe });
                 }
-                if (result.IsLockedOut)
+                if (result.IsLockedOut)//Si el usuario está bloqueado
                 {
                     _logger.LogWarning("User account locked out.");
                     return RedirectToPage("./Lockout");

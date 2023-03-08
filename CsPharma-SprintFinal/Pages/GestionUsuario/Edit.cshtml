@@ -71,6 +71,12 @@
                     <span asp-validation-for="UserModel.User.UserName" class="text-danger"></span>
                 </div>
 
+                <div class="col-sm-6">
+                    <label asp-for="UserModel.User." class="form-label">Nombre de usuario</label>
+                    <input asp-for="UserModel.User.UserName" class="form-control" autocomplete="username" aria-required="true" placeholder="El usuario no ha proporcionado un número de teléfono" />
+                    <span asp-validation-for="UserModel.User.UserName" class="text-danger"></span>
+                </div>
+
             </div>
 
             <br />

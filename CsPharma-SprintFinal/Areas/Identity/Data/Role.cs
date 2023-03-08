@@ -6,7 +6,8 @@ using Microsoft.AspNetCore.Identity;
 
 namespace CsPharma_V4.Areas.Identity.Data;
 
-// Add profile data for application users by adding properties to the User class
+//Clase vacía de roles que hereda de IdentityRole,
+//que se usa para que funcionen la simplementaciones y los repositorios del CRUD de usuarios
 public class Role : IdentityRole
 {
 
