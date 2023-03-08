@@ -32,7 +32,7 @@ namespace CsPharma_V4.Pages.GestionUsuario
         {
             if (_loginContexto.UserSet != null)
             {
-                UserList = await _loginContexto.UserSet.ToListAsync();
+                UserList = await _loginContexto.UserSet.ToListAsync();//Recupera la lista de usuarios del contexto
             }
         }
     }

@@ -23,7 +23,7 @@ namespace CsPharma_V4.Pages.GestionUsuario
             _loginContexto = loginContexto;
         }
 
-        [BindProperty]
+        [BindProperty]//Anotación que indica que User va a recibir información a traves del HTML
         public User User { get; set; }
 
         public async Task<IActionResult> OnGetAsync(string id)

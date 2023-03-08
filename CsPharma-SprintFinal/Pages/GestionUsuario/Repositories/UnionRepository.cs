@@ -2,13 +2,16 @@
 
 namespace Pages.GestionUsuario.Repositories
 {
+    /*
+    * Repositorio que sirve para agrupar el repositorio de Roles e Interfaces en uno solo.
+    */
     public class Union : IUnionRepository
     {
         public IUserRepository User { get; }
 
-        public IRoleRepository Role { get; }
+        public IIdentityRoleRepository Role { get; }
 
-        public Union(IUserRepository user, IRoleRepository role)
+        public Union(IUserRepository user, IIdentityRoleRepository role)
         {
             User = user;
             Role = role;
